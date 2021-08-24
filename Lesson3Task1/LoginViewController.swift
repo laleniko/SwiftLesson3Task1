@@ -17,9 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         userNameField.delegate = self
+        userPasswordField.delegate = self
         
-        userNameField.returnKeyType = UIReturnKeyType.next
-        userPasswordField.returnKeyType = UIReturnKeyType.done
         userPasswordField.enablesReturnKeyAutomatically = true;
 
     }
@@ -56,13 +55,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         userNameField.text = ""
         userPasswordField.text = ""
+        userNameField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
             nextField.becomeFirstResponder()
-        }else {
-            textField.resignFirstResponder()
+        }
+        if let password = userPasswordField.text, password.count > 1 {
+            userPasswordField.enablesReturnKeyAutomatically = false;
+        }
+        if isLoginDataCorrectly() {
+            performSegue(withIdentifier: "segue", sender: nil)
         }
         return false
     }
