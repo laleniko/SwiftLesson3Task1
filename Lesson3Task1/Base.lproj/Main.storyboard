@@ -36,7 +36,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
-                                    <action selector="logIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="IMH-Pq-792"/>
                                     <segue destination="LiR-5C-G0a" kind="show" id="40x-hr-rg7"/>
                                 </connections>
                             </button>
@@ -92,12 +91,48 @@
                     <view key="view" contentMode="scaleToFill" id="tEN-aw-4SN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="v9k-Zk-Dxz">
+                                <rect key="frame" x="176" y="244" width="62" height="49"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Привет," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDZ-Gn-aVH">
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYq-rk-ESy">
+                                        <rect key="frame" x="14.5" y="28.5" width="33.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-IF-xld">
+                                <rect key="frame" x="183" y="782" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <segue destination="Sdx-RA-TfT" kind="unwind" unwindAction="unwindFor:" id="P8h-hl-jeS"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bpK-g8-onY"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                        <constraints>
+                            <constraint firstItem="nuo-IF-xld" firstAttribute="centerX" secondItem="tEN-aw-4SN" secondAttribute="centerX" id="PVg-ZQ-GYu"/>
+                            <constraint firstItem="bpK-g8-onY" firstAttribute="bottom" secondItem="nuo-IF-xld" secondAttribute="bottom" constant="50" id="Q3m-7z-2aB"/>
+                            <constraint firstItem="v9k-Zk-Dxz" firstAttribute="centerX" secondItem="tEN-aw-4SN" secondAttribute="centerX" id="hqc-6P-3C4"/>
+                            <constraint firstItem="v9k-Zk-Dxz" firstAttribute="top" secondItem="bpK-g8-onY" secondAttribute="top" constant="200" id="u2J-4I-tBU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eAg-Av-puS"/>
+                    <connections>
+                        <outlet property="userNameLabel" destination="WYq-rk-ESy" id="afU-sj-CxY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zi-Y4-mn3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Sdx-RA-TfT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1950.7246376811595" y="114.50892857142857"/>
         </scene>

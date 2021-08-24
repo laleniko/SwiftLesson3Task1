@@ -14,27 +14,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
-        print(123)
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return isLoginDataCorrectly()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-    }
-
-    @IBAction func logIn() {
-        if !isLoginDataCorrectly() {
-            showAlert(title: "OOps", message: "Data incorrect")
-        }
+        view.endEditing(true)
     }
     
     @IBAction func forgotUserName() {
@@ -45,11 +27,32 @@ class LoginViewController: UIViewController {
         showAlert(title: "OOps", message: "Your password is \(password)")
     }
     
-    func isLoginDataCorrectly() -> Bool {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let welcomeUi = segue.destination as? WelcomeViewController else { return }
+        welcomeUi.userName = userNameField.text ?? ""
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if !isLoginDataCorrectly() {
+            showAlert(title: "OOps", message: "Data incorrect")
+            userPasswordField.text = ""
+        }
+        return isLoginDataCorrectly()
+    }
+    
+    @IBAction func unwind(for unwindSegue: UIStoryboardSegue) {
+        guard unwindSegue.source is WelcomeViewController else {
+            return
+        }
+        userNameField.text = ""
+        userPasswordField.text = ""
+    }
+    
+    private func isLoginDataCorrectly() -> Bool {
         return userNameField.text == login && userPasswordField.text == password
     }
     
-    func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
