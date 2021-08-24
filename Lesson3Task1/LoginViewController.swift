@@ -7,12 +7,22 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
-    let login = "user"
-    let password = "pass"
+class LoginViewController: UIViewController, UITextFieldDelegate {
+    private let login = "user"
+    private let password = "pass"
 
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        userNameField.delegate = self
+        
+        userNameField.returnKeyType = UIReturnKeyType.next
+        userPasswordField.returnKeyType = UIReturnKeyType.done
+        userPasswordField.enablesReturnKeyAutomatically = true;
+
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -46,6 +56,15 @@ class LoginViewController: UIViewController {
         }
         userNameField.text = ""
         userPasswordField.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        }else {
+            textField.resignFirstResponder()
+        }
+        return false
     }
     
     private func isLoginDataCorrectly() -> Bool {
