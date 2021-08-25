@@ -10,7 +10,7 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate {
     private let login = "user"
     private let password = "pass"
-
+    
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
     
@@ -20,7 +20,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         userPasswordField.delegate = self
         
         userPasswordField.enablesReturnKeyAutomatically = true;
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -65,8 +64,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if let password = userPasswordField.text, password.count > 1 {
             userPasswordField.enablesReturnKeyAutomatically = false;
         }
-        if isLoginDataCorrectly() {
-            performSegue(withIdentifier: "segue", sender: nil)
+        if textField.tag == 1 {
+            if isLoginDataCorrectly() {
+                performSegue(withIdentifier: "segue", sender: nil)
+            } else {
+                showAlert(title: "OOps", message: "Data incorrect")
+                userPasswordField.text = ""
+            }
         }
         return false
     }
